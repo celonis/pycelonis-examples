@@ -1,7 +1,8 @@
 import pandas as pd
 from pycelonis import get_celonis, pql
 
-from .utils import ext_data, external_data_utils, model_utils, utils
+from utils import ext_data_utils, model_utils, utils
+
 
 # Load input data
 celonis = get_celonis()
@@ -16,7 +17,7 @@ query += pql.PQLFilter(input_filter)
 df = datamodel.get_data_frame(query)
 
 # Import External Data for n-step Predictions (such as GDP below)
-ext_data = external_data_utils.load_external_data(
+ext_data = ext_data_utils.load_external_data(
     overall_gdp_csv="US_GDP.csv",
     industry_gdp_perc_csv="US_MANUF_GDP_PERC.csv",
     csv_col_1="GDP",

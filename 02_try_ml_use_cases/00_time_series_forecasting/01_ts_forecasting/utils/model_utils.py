@@ -7,7 +7,7 @@ import pmdarima
 import statsmodels.api as sm
 from sklearn import linear_model, metrics
 from statsmodels.tsa.statespace import sarimax
-from .utils import utils, plot_utils
+from . import utils, plot_utils
 
 
 def run_predictions_model(df, ext_data, val_size_perc, to_adjust_years):
@@ -106,7 +106,7 @@ def run_predictions_model(df, ext_data, val_size_perc, to_adjust_years):
     # PARAM - seasonsality period in days
     seas_period_days = 52 * 7
     delta = datetime.timedelta(days=-seas_period_days)
-    for i in train_df[train_df[seasonality_col_name].isnull() == True].index:
+    for i in train_df[train_df[seasonality_col_name].isnull() is True].index:
         train_df.loc[i][seasonality_col_name] = train_df.loc[i + delta][seasonality_col_name]
     # Plot Y, T and S
     plot_utils.plot_y_t_s_with_pred(train_df, trend_col_name, seasonality_col_name, trend_pred_col_name)

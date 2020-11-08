@@ -1,5 +1,5 @@
 import pandas as pd
-from .utils import plot_utils
+from . import plot_utils
 
 
 def load_external_data(
