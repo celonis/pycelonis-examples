@@ -20,7 +20,7 @@ def plot_y_trend(train_df, t, y_min, y_max):
     plt.show()
 
 
-def plot_y_trend_ext(train_df, exo_col_name, exo_pretty_name, y_min, y_max, y_min_exo, y_max_exo):
+def plot_y_trend_ext(train_df, Y, exo_col_name, exo_pretty_name, y_min, y_max, y_min_exo, y_max_exo):
     fig, ax = plt.subplots(figsize=(20, 10))
     ax2 = ax.twinx()
     # Net Order Value
@@ -28,10 +28,10 @@ def plot_y_trend_ext(train_df, exo_col_name, exo_pretty_name, y_min, y_max, y_mi
     # External data/GDP
     ax2.plot(train_df.index, train_df[exo_col_name], color="c", label=exo_pretty_name)
     # Trend
-    ax.plot(train_df.dropna().index, Y, color="b", label="Trend")
+    ax.plot(train_df.dropna().index[:len(Y)], Y, color="b", label="Trend")
     plt.legend(loc="upper right")
     ax.set_ylim([y_min, y_max])
-    ax2.plot_clean_y([y_min_exo, y_max_exo])
+    ax2.set_ylim([y_min_exo, y_max_exo])
     plt.show()
 
 
@@ -40,14 +40,15 @@ def plot_y_pred_trend_ext(train_df, exo_col_name, X, Y, X_F, y_min, y_max, y_min
     ax2 = ax.twinx()
     # External Data/GDP
     ax2.plot(
-        train_df[exo_col_name].dropna().index, train_df[exo_col_name].dropna(), color="m", label="External data (full)"
+        train_df[exo_col_name].dropna().index, train_df[exo_col_name].dropna(), color="m", label="External data (Full)"
     )
-    ax2.plot(train_df.dropna().index, X, color="c", label="External data (train for T fit)")
+    ax2.plot(train_df.dropna().index[:len(X)], X, color="c", label="External data (Train for Trend fit)")
     # Trend
-    ax.plot(train_df.dropna().index, Y, color="b", label="Trend (train for T fit)")
-    # Reg predicted Trend
-    ax.plot(train_df[exo_col_name].dropna().index, reg.predict(X_F), color="g", label="T Pred")
-    plt.legend(loc="upper right")
+    ax.plot(train_df.dropna().index[:len(Y)], Y, color="b", label="Trend (Train for Trend fit)")
+    # Predicted Trend (through Reg)
+    ax.plot(train_df[exo_col_name].dropna().index, train_df["Predicted Trend"][-len(X_F):], color="g", label="Trend (Predicted)")
+    ax.legend(loc="upper right")
+    ax2.legend(loc="lower right")
     ax.set_ylim([y_min, y_max])
     ax2.set_ylim([y_min_exo, y_max_exo])
     plt.show()
@@ -90,7 +91,7 @@ def plot_acf_pacf_r(r, lags):
     plt.show()
 
 
-def plot_final(train_df, trend_col_name, seasonality_col_name, r_col_name, trend_pred_col_name, y_pred_col_name):
+def plot_final(train_df, trend_col_name, seasonality_col_name, r_col_name, trend_pred_col_name, y_pred_col_name,class_col_name):
     fig, ax = plt.subplots(figsize=(20, 10))
     plt.plot(train_df.index, train_df["Net Order Value"], color="g", label="Y")
     plt.plot(train_df.index, train_df[trend_col_name], color="b", label="T")
@@ -104,15 +105,15 @@ def plot_final(train_df, trend_col_name, seasonality_col_name, r_col_name, trend
     )
     # Predicted Y on Validation part
     plt.plot(
-        train_df[train_df["Predicted R Classification"] == "test"].index,
-        train_df[train_df["Predicted R Classification"] == "test"][y_pred_col_name],
+        train_df[train_df[class_col_name] == "test"].index,
+        train_df[train_df[class_col_name] == "test"][y_pred_col_name],
         color="c",
         label="Y Pred (val)",
     )
     # Predicted Y on Future part
     plt.plot(
-        train_df[train_df["Predicted R Classification"] == "forecast"].index,
-        train_df[train_df["Predicted R Classification"] == "forecast"][y_pred_col_name],
+        train_df[train_df[class_col_name] == "forecast"].index,
+        train_df[train_df[class_col_name] == "forecast"][y_pred_col_name],
         color="r",
         label="Y Pred (future)",
     )
