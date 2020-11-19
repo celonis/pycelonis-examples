@@ -85,7 +85,7 @@ def run_predictions_model(df,
     # Use External data/GDP to fit and predict the Trend
     print('train df shape is ',
           train_df.dropna().shape, ', adding the external data into the df...')
-    train_df = utils.combine_ext_data(train_df, ext_data, days_to_shift=1)
+    train_df = utils.combine_ext_data(train_df, ext_data, days_to_shift=None)
 
     # Define X=GDP and Y=Trend for Regression model
     exo_pretty_name = "Regressor"  # PARAM - External Data/GDP column
@@ -173,7 +173,7 @@ def run_predictions_model(df,
     # Fit ARIMA Model on R for R predictions
     p, d, q = 3, 0, 3  # PARAM - p for AR, d for I, q for MA.
     P, D, Q, s = None, None, None, None  # If seasonality use P,D,Q,s, if not set to None.
-    n_pred = 18  # n_pred is # future points to forecast
+    n_pred = 5  # n_pred is # future points to forecast
     model = None  # (Optional) model - to input an existing loaded model
     exo = None  # (Optional) exo - to input exogenous regressors
     r_df = r_df.dropna()
@@ -270,17 +270,16 @@ def get_results_with_val(df,
     # Create SARIMAX model or use input model
     print("Checking model for fit...")
     if model is None:
-        print("No input model, will fit SARIMA" + str(p) + str(d) + str(q) +
-              str(P) + str(D) + str(Q) + str(s))
-        print("Starting Arima fit...")
+        print("No input model, starting to fit SARIMAX" + str(p) + str(d) +
+              str(q) + str(P) + str(D) + str(Q) + str(s))
         smodel = pmdarima.arima.ARIMA(order=[p, d, q],
                                       method="lbfgs",
                                       maxiter=50,
                                       suppress_warnings=True)
         smodel = smodel.fit(df[y_col_name].values, exo_past)
-        print("Finished Arima fit.")
+        print("Finished SARIMAX fit.")
     else:
-        print("Existing model, will use it")
+        print("Existing input model, will use it")
         smodel = model
 
     # Test model on the Validation set
@@ -322,12 +321,12 @@ def get_results_with_val(df,
     Tested["Date"] = pd.to_datetime(Tested["Date"])
 
     # Add Forecast set to output
-    print("Starting to predict future values...")
+    print("Predicting forecast values...")
     n_periods = n_predictions
     fitted, confint = smodel.predict(n_periods=n_periods,
                                      return_conf_int=True,
                                      exogenous=exo_future)
-    print("Finished to predict future values.")
+    print("Finished predicting forecast values.")
     rng = pd.date_range(df["Date"].max(), periods=n_periods, freq="7D")
     forecast = pd.DataFrame({
         "Date": rng,

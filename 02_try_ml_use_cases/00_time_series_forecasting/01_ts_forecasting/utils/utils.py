@@ -66,7 +66,7 @@ def calculate_trend(df, ts_seasonality, center=False):
     return t
 
 
-def combine_ext_data(train_df, ext_data, days_to_shift=1):
+def combine_ext_data(train_df, ext_data, days_to_shift=None):
     """Combine External/GDP data with Y"""
     # Add Exo regressors (GDP) to train df
     train_df = train_df.set_index("Date")
