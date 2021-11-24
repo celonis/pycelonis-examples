@@ -1,7 +1,6 @@
-# pycelonis-examples
+# PyCelonis Examples
 
-Welcome to the PyCelonis examples repository!
-This repository contains demo notebooks covering popular functionalities and use cases for the PyCelonis package.
+This repository contains demo notebooks covering popular functionalities and use cases of PyCelonis.
 
 ## Overview
 
@@ -13,10 +12,13 @@ The examples are grouped by high-level use case:
 
 ## PyCelonis
 
-PyCelonis allows you to connect to Celonis from Python.
+[![License: Celonis Tools License Agreement](https://img.shields.io/badge/License-Celonis%20Tools%20License%20Agreement-brightgreen)](https://celonis.github.io/pycelonis/license.html)
+[![Pycelonis Documentation](https://img.shields.io/badge/Docs-pycelonis-yellow)](https://celonis.github.io/pycelonis/index.html)
+
+PyCelonis is a python api wrapper for Celonis EMS.
 
 Using this package you can programmatically interact with Analyses, Workspaces, Datamodels, Datapools and other Celonis objects.
 The package also allows pushing and pulling data to and from data pools and data models.
 
 PyCelonis is pre-installed in all Celonis Machine Learning Workbenches by default.
-For more information about PyCelonis and how to set it up in your local python environment, [see the documentation of PyCelonis.](https://celonis.github.io/pycelonis/)
+For more information about PyCelonis and how to set it up in your local python environment, [see the docs](https://celonis.github.io/pycelonis/).
