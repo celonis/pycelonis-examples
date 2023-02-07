@@ -1,0 +1,47 @@
+import pycelonis
+import pandas as pd
+from pycelonis.pql import PQL
+
+def extract_table_from_data_pool(
+    celonis_object: pycelonis.celonis.Celonis,
+    data_pool: pycelonis.ems.data_integration.data_pool.DataPool,
+    data_model: pycelonis.ems.data_integration.data_model.DataModel,
+    table: pycelonis.ems.data_integration.data_pool_table.DataPoolTable,
+    ) -> pd.DataFrame:
+
+    """This function creates the PQL query to extract a whole
+    table from a data model. If the table is too big, the kernel might
+    shut down, make sure the RAM memory is enough.
+
+        Input:
+            celonis_object: Celonis object already instantiated
+            data_pool: Data Pool object already instantiated
+            data_model: Data Model object already instantiated
+            table: Table object already instantiated
+
+        Returns:
+            df: DataFrame containing the target table.
+    """
+
+    # Instantiate query object
+    query = PQL(distinct=False, limit=None, offset=None)
+     
+    # Populate query with all the columns from the table
+    for PQL_column in table.get_columns():
+        query += PQLColumn(name=PQL_column.name, query=f""" "{table.name}"."{PQL_column.name}" """)
+    
+    try:
+        # If you have USE permissions on the data model this method can be used
+        df = DataModel.export_data_frame_from(
+                                     celonis_object.client,
+                                     pool_id=data_model.pool_id,
+                                     data_model_id=data_model.id,
+                                     query=query)
+        print("You have use permissions")
+    except:
+        # Should work if you don't have USE permissions
+        df = data_model.export_data_frame(query)
+        print("You might not have USE permissions")
+    
+    return df
+
