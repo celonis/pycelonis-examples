@@ -1,14 +1,10 @@
 # PyCelonis Examples
 
 This repository contains demo notebooks covering popular functionalities and use cases of PyCelonis.
+It acts as an addition to the official [tutorials](https://celonis.github.io/pycelonis/2.0.1/tutorials/executed/01_quickstart/01_installation/) for PyCelonis. 
 
-## Overview
-
-The examples are grouped by high-level use case:
-
-- **00_manage_celonis:** Migrating one Celonis instance to another, creating backups of objects, misc. interactions with platform (e.g. triggering a ML Workbench execution from another tool)
-- **01_use_pycelonis:** Mainly Pulling and pushing data from Celonis, including pulling data through an Analysis component and writing PQL queries
-- **02_try_ml_use_cases:** Machine learning example use cases that can serve as a starting point for building your own custom ML use case on the Celonis platform
+The repository contains several notebooks for both PyCelonis 1.X and 2.X that act as examples on what you can achieve using PyCelonis.
+The examples are grouped by their PyCelonis version and specific use cases.
 
 ## PyCelonis
 
