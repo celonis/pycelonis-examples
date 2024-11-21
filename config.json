@@ -1,12 +1,13 @@
 {
-    "source_data_pool_id": "7873300c-ba33-4c61-ac8f-4d912f7c0312",
-    "source_data_model_id": "cd425ef4-6815-4360-b155-388d54eea294",
-    "source_url": "https://edixej07-2024-11-08.training.celonis.cloud/integration/ui/pools/7873300c-ba33-4c61-ac8f-4d912f7c0312/data-configuration/process-data-models/cd425ef4-6815-4360-b155-388d54eea294?tab=data-model",
-    "source_api_token": "NmI1ZWViZjktYmRiNi00ZGU5LTgyMTUtZjU0Nzk3ZGQ1N2MzOnRCNU9MV2xqRlJyakhJTVF0TlRibHhGYUhXbW9HR25ya2lDNUFqckFZTTlO",
-    "target_data_pool_id": "28050e78-1a20-417e-9f21-c6185c1505ba",
-    "target_data_model_id": "5c70733e-51c8-47a8-965e-aa42262e7441",
-    "target_url": "https://edixej07-2024-11-08.training.celonis.cloud/integration/ui/pools/28050e78-1a20-417e-9f21-c6185c1505ba/data-configuration/process-data-models/5c70733e-51c8-47a8-965e-aa42262e7441?tab=data-model", 
-    "target_api_token": "NTU3MTM0NzctMjliYi00MGJhLTkzNmMtYWFjMWJiYWYxNTdkOk1kZlR3anRqNEhFOGtnZE1YVXdBVFYrTDR5U2p5QUxmTThqeThsaUN5N2NP" 
+    "source_data_pool_id": "",
+    "source_data_model_id": "",
+    "source_url": "",
+    "source_api_token": "",
+    "target_data_pool_id": "",
+    "target_data_model_id": "",
+    "target_url": "", 
+    "target_api_token": "",
+    "parquet_file_path": ""
    
 }
 
